@@ -3,6 +3,8 @@ console.log('[CPW II] Flappy Bird');
 const sprites = new Image();
 sprites.src = './sprites.png';
 
+// [teste git]
+
 const canvas = document.querySelector('canvas');
 const contexto = canvas.getContext('2d');
 
