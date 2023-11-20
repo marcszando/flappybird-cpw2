@@ -94,8 +94,6 @@ function loop() {
     chao.desenha();
     flappyBird.desenha();
     
-
-
     requestAnimationFrame(loop);
 }
 
