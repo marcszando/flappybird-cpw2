@@ -101,12 +101,12 @@ function criaFlappyBird() {
     y: 50,
     pulo: 4.6,
     pula() {
-      console.log('devo pular');
-      console.log('[antes]', flappyBird.velocidade);
+      // console.log('devo pular');
+      // console.log('[antes]', flappyBird.velocidade);
       flappyBird.velocidade =  - flappyBird.pulo;
-      console.log('[depois]', flappyBird.velocidade);
+      // console.log('[depois]', flappyBird.velocidade);
     },
-    gravidade: 0.25,
+    gravidade: 0.15,
     velocidade: 0,
     atualiza() {
       if(fazColisao(flappyBird, globais.chao)) {
@@ -217,7 +217,7 @@ function criaCanos() {
     desenha() {
       canos.pares.forEach(function(par) {
         const yRandom = par.y;
-        const espacamentoEntreCanos = 90;
+        const espacamentoEntreCanos = 180;
   
         const canoCeuX = par.x;
         const canoCeuY = yRandom; 
@@ -269,22 +269,41 @@ function criaCanos() {
     },
     pares: [],
     atualiza() {
-      const passou100Frames = frames % 100 === 0;
+      const passou100Frames = frames % distanciaDosCanos === 0; // divide pela distância e verifica se o resto é = 0 - Antes ele fazia um cano a cada 100 frames, agora esse valor é variável de 100 a 300
+
+      // console.log('passou100Frames', passou100Frames)
       if(passou100Frames) {
-        console.log('Passou 100 frames');
+        // console.log('Passou 100 frames');
+        distanciaDosCanos = distanciaDosCanos + Math.floor(Math.random() * (200)) +100
         canos.pares.push({
           x: canvas.width,
-          y: -150 * (Math.random() + 1),
+          y: -200 * (Math.random() + 1), // mudamos a posição de Y para os espaços entre os canos apareçam mais altos também.
         });
       }
 
 
 
       canos.pares.forEach(function(par) {
-        par.x = par.x - 2;
+        // let tetoMaximo
+        par.x = par.x - 1;
+
+        let contador = 0;
+
+        
+        console.log(par)
+        
+        if(Math.sin(frames * 0.05) > 0 ){
+          par.y = par.y + 1;
+
+        }
+        else{
+         par.y = par.y - 1;
+
+        }
+
 
         if(canos.temColisaoComOFlappyBird(par)) {
-          console.log('Você perdeu!')
+          // console.log('Você perdeu!')
           som_HIT.play();
           mudaParaTela(Telas.GAME_OVER);
         }
@@ -327,6 +346,7 @@ function criaPlacar() {
 // 
 const globais = {};
 let telaAtiva = {};
+let distanciaDosCanos = 100 // distância fixa para aparecer o primeiro cano, pois estava dando problema com o fator da aleatoriedade e em alguns casos demorando muito para aparecer.
 function mudaParaTela(novaTela) {
   telaAtiva = novaTela;
 
@@ -388,6 +408,8 @@ Telas.GAME_OVER = {
     
   },
   click() {
+    frames = 0; // reseta o contador de frames toda vez que inicia o jogo, pois não resetar estava causando problemas na criação aleatória dos canos.
+    distanciaDosCanos = 100;
     mudaParaTela(Telas.INICIO);
   }
 }
@@ -408,7 +430,7 @@ window.addEventListener('click', function() {
   }
 });
 
-window.addEventListener('keydown', function(pulaEspaco) {
+window.addEventListener('keydown', function(pulaEspaco) { // adicionado para que também possa ser jogado clicando na tecla espaço
   if (pulaEspaco.code === 'Space') {
     if (telaAtiva.click) {
       telaAtiva.click();
