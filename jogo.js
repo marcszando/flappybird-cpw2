@@ -277,7 +277,7 @@ function criaCanos() {
         distanciaDosCanos = distanciaDosCanos + Math.floor(Math.random() * (200)) +100
         canos.pares.push({
           x: canvas.width,
-          y: -200 * (Math.random() + 1), // mudamos a posição de Y para os espaços entre os canos apareçam mais altos também.
+          y: -200 * (Math.random() + 1), // mudei a posição de Y para os espaços entre os canos apareçam mais altos também.
         });
       }
 
