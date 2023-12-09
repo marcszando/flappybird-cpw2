@@ -269,7 +269,7 @@ function criaCanos() {
     },
     pares: [],
     atualiza() {
-      const passou100Frames = frames % distanciaDosCanos === 0; // divide pela distância e verifica se o resto é = 0 - Antes ele fazia um cano a cada 100 frames, agora esse valor é variável de 100 a 300
+      const passou100Frames = frames % distanciaDosCanos === 0; // A distancia de criação de canos agora é variável entre 100 e 300.
 
       // console.log('passou100Frames', passou100Frames)
       if(passou100Frames) {
@@ -277,7 +277,7 @@ function criaCanos() {
         distanciaDosCanos = distanciaDosCanos + Math.floor(Math.random() * (200)) +100
         canos.pares.push({
           x: canvas.width,
-          y: -200 * (Math.random() + 1), // mudei a posição de Y para os espaços entre os canos apareçam mais altos também.
+          y: -200 * (Math.random() + 1), // Aumentei a posição de Y para que o vão entre os canos possam aparecer em posições mais altas da tela.
         });
       }
 
@@ -286,7 +286,7 @@ function criaCanos() {
       canos.pares.forEach(function(par) {
         par.x = par.x - 1;
 
-        if(Math.sin(frames * 0.05) > 0 ){
+        if(Math.sin(frames * 0.05) > 0 ){ // Faz com que os canos se movam para cima e para baixo.
           par.y = par.y + 1;
 
         }
@@ -339,7 +339,7 @@ function criaPlacar() {
 // 
 const globais = {};
 let telaAtiva = {};
-let distanciaDosCanos = 100 // distância fixa para aparecer o primeiro cano, pois estava dando problema com o fator da aleatoriedade e em alguns casos demorando muito para aparecer.
+let distanciaDosCanos = 100 // Distância fixa para aparecer o primeiro cano.
 function mudaParaTela(novaTela) {
   telaAtiva = novaTela;
 
@@ -401,7 +401,7 @@ Telas.GAME_OVER = {
     
   },
   click() {
-    frames = 0; // reseta o contador de frames toda vez que inicia o jogo, pois não resetar estava causando problemas na criação aleatória dos canos.
+    frames = 0; // Reseta o contador de frames toda vez que inicia o jogo.
     distanciaDosCanos = 100;
     mudaParaTela(Telas.INICIO);
   }
@@ -423,7 +423,7 @@ window.addEventListener('click', function() {
   }
 });
 
-window.addEventListener('keydown', function(pulaEspaco) { // adicionado para que também possa ser jogado clicando na tecla espaço
+window.addEventListener('keydown', function(pulaEspaco) { // Adicionado para que também possa ser jogado clicando na tecla espaço.
   if (pulaEspaco.code === 'Space') {
     if (telaAtiva.click) {
       telaAtiva.click();
