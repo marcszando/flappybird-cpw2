@@ -101,10 +101,10 @@ function criaFlappyBird() {
     y: 50,
     pulo: 4.6,
     pula() {
-      // console.log('devo pular');
-      // console.log('[antes]', flappyBird.velocidade);
+      console.log('devo pular');
+      console.log('[antes]', flappyBird.velocidade);
       flappyBird.velocidade =  - flappyBird.pulo;
-      // console.log('[depois]', flappyBird.velocidade);
+      console.log('[depois]', flappyBird.velocidade);
     },
     gravidade: 0.15,
     velocidade: 0,
@@ -284,14 +284,8 @@ function criaCanos() {
 
 
       canos.pares.forEach(function(par) {
-        // let tetoMaximo
         par.x = par.x - 1;
 
-        let contador = 0;
-
-        
-        console.log(par)
-        
         if(Math.sin(frames * 0.05) > 0 ){
           par.y = par.y + 1;
 
@@ -301,9 +295,8 @@ function criaCanos() {
 
         }
 
-
         if(canos.temColisaoComOFlappyBird(par)) {
-          // console.log('Você perdeu!')
+          console.log('Você perdeu!')
           som_HIT.play();
           mudaParaTela(Telas.GAME_OVER);
         }
